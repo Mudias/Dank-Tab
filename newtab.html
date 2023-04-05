@@ -38,8 +38,8 @@
         line-height: 30px;
         color: #333333;
         font-size: 20px;
-        position: fixed;
-        bottom: 10px;
+        position: absolute;
+        top: 10px;
         right: 10px;
         cursor: pointer;
       }
@@ -50,31 +50,34 @@
       <h2 contenteditable>Card Title</h2>
       <input type="text" placeholder="Title"><br>
       <textarea placeholder="Description or Note"></textarea>
+      <div class="add-card">+</div>
     </div>
-    <div class="add-card">+</div>
     <!-- Your new tab page content here -->
     <script>
-      // Find the plus button
-      var addButton = document.querySelector('.add-card');
+      // Find all plus buttons
+      var addButtons = document.querySelectorAll('.add-card');
       
-      // Add click event listener to the button
-      addButton.addEventListener('click', function() {
-        // Get reference to the last card
-        var card = document.querySelector('.card:last-of-type');
-        
-        // Create a new card element
-        var newCard = document.createElement('div');
-        newCard.className = 'card';
-        
-        // Add content to the new card element
-        newCard.innerHTML = `
-          <h2 contenteditable>New Card Title</h2>
-          <input type="text" placeholder="Title"><br>
-          <textarea placeholder="Description or Note"></textarea>
-        `;
-        
-        // Insert the new card after the last card
-        card.parentNode.insertBefore(newCard, card.nextSibling);
+      // Add click event listener to each button
+      addButtons.forEach(function(addButton) {
+        addButton.addEventListener('click', function() {
+          // Get reference to the card that was clicked
+          var card = addButton.parentNode;
+          
+          // Create a new card element
+          var newCard = document.createElement('div');
+          newCard.className = 'card';
+          
+          // Add content to the new card element
+          newCard.innerHTML = `
+            <h2 contenteditable>New Card Title</h2>
+            <input type="text" placeholder="Title"><br>
+            <textarea placeholder="Description or Note"></textarea>
+            <div class="add-card">+</div>
+          `;
+          
+          // Insert the new card after the current card
+          card.parentNode.insertBefore(newCard, card.nextSibling);
+        });
       });
     </script>
   </body>
